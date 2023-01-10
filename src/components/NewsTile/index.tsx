@@ -8,6 +8,7 @@ export interface NewsTileProps {
   url: string;
   image: string | undefined;
   onBookmark?: () => void;
+  isBookmarked?: boolean;
 }
 
 const NewsTile: React.FC<NewsTileProps> = ({
@@ -16,6 +17,7 @@ const NewsTile: React.FC<NewsTileProps> = ({
   url,
   image,
   onBookmark,
+  isBookmarked,
 }) => {
   const openArticle = async () => {
     await WebBrowser.openBrowserAsync(url);
@@ -29,7 +31,9 @@ const NewsTile: React.FC<NewsTileProps> = ({
         <Text variant="bodySmall">{abstract}</Text>
       </Card.Content>
       <Card.Actions>
-        <Button onPress={onBookmark}>Bookmark</Button>
+        <Button onPress={onBookmark}>
+          {isBookmarked ? 'Remove from bookmarks' : 'Bookmark'}
+        </Button>
         <Button mode="contained" onPress={openArticle}>
           Read
         </Button>

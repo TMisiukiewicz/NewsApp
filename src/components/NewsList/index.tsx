@@ -12,18 +12,23 @@ interface NewsListProps {
 }
 
 const NewsList = ({data, onRefresh, isFetching}: NewsListProps) => {
+  const readLater = useReadLaterStore(state => state.articles);
   const saveForReading = useReadLaterStore(state => state.addArticle);
+  const removeFromList = useReadLaterStore(state => state.removeArticle);
 
   const renderItem: ListRenderItem<TopStoriesResult> = ({item}) => {
     const {title, abstract, url, multimedia} = item;
     const image = multimedia.find(
       img => img.format === 'threeByTwoSmallAt2X',
     )?.url;
+    const isBookmarked = Boolean(readLater.find(news => news.title === title));
 
     return (
       <NewsTile
-        {...{title, abstract, url, image}}
-        onBookmark={() => saveForReading(item)}
+        {...{title, abstract, url, image, isBookmarked}}
+        onBookmark={() =>
+          !isBookmarked ? saveForReading(item) : removeFromList(item)
+        }
       />
     );
   };
@@ -33,9 +38,10 @@ const NewsList = ({data, onRefresh, isFetching}: NewsListProps) => {
       {...{data, renderItem, onRefresh}}
       refreshing={onRefresh ? isFetching : undefined}
       contentContainerStyle={{paddingVertical: 10}}
-      estimatedItemSize={100}
       ListEmptyComponent={<Text>No items to show</Text>}
+      estimatedItemSize={373}
       showsVerticalScrollIndicator={false}
+      extraData={readLater}
     />
   );
 };

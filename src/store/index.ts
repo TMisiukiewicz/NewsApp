@@ -6,6 +6,7 @@ import {TopStoriesResult} from '../api/queries/useTopStories';
 interface ReadLaterStore {
   articles: TopStoriesResult[];
   addArticle: (article: TopStoriesResult) => void;
+  removeArticle: (article: TopStoriesResult) => void;
 }
 const useReadLaterStore = create<ReadLaterStore>()(
   persist(
@@ -13,6 +14,12 @@ const useReadLaterStore = create<ReadLaterStore>()(
       articles: [],
       addArticle: article =>
         set(state => ({articles: [article, ...state.articles]})),
+      removeArticle: article =>
+        set(state => ({
+          articles: [
+            ...state.articles.filter(({title}) => title !== article.title),
+          ],
+        })),
     }),
     {
       name: 'read-later',

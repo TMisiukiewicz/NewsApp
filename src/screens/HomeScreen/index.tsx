@@ -24,6 +24,7 @@ const HomeScreen = () => {
       ) : (
         <>
           <SegmentedButtons
+            density="small"
             style={{marginVertical: 10}}
             value={scene}
             onValueChange={setScene}

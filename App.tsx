@@ -2,7 +2,7 @@ import React from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import MainStack from './src/navigation/MainStack';
+import TabNavigator from './src/navigation/TabNavigator';
 
 const client = new QueryClient();
 
@@ -11,7 +11,7 @@ const App = () => {
     <QueryClientProvider {...{client}}>
       <PaperProvider>
         <NavigationContainer>
-          <MainStack />
+          <TabNavigator />
         </NavigationContainer>
       </PaperProvider>
     </QueryClientProvider>

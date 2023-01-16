@@ -3,6 +3,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MainStack from './MainStack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MoviesScreen from '../screens/MoviesScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -23,6 +24,16 @@ const TabNavigator = () => {
         options={{
           tabBarLabel: 'Movies',
           tabBarIcon: ({color}) => <Icon name="film" {...{color}} size={26} />,
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarLabel: 'Search articles',
+          tabBarIcon: ({color}) => (
+            <Icon name="search" {...{color}} size={26} />
+          ),
         }}
       />
     </Tab.Navigator>
